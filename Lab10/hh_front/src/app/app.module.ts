@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { VacancyDetailComponent } from './vacancy-detail/vacancy-detail.component';
 import { VacancyTopTenComponent } from './vacancy-top-ten/vacancy-top-ten.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { VacancyTopTenComponent } from './vacancy-top-ten/vacancy-top-ten.compon
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

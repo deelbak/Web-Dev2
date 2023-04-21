@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Vacancy } from '../models';
+import { VacancyService } from '../vacancy.service';
 
 @Component({
   selector: 'app-vacancies',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./vacancies.component.css']
 })
 export class VacanciesComponent {
-
+  vacancies: Vacancy[] = [];
+  constructor(private service: VacancyService){}
+  ngOnInit(): void{
+    this.service.getVacancies().subscribe((vacancies)=>{
+      this.vacancies = vacancies
+    })
+  }
 }

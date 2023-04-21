@@ -1,1 +1,8 @@
-<p>companies works!</p>
+<p>companies list is here!</p>
+<ul>
+  <li *ngFor="let company of companies">
+    <a [routerLink]="['/companies', company.id]">
+      {{company.id}}: {{company.name}}
+    </a>
+  </li>
+</ul>
