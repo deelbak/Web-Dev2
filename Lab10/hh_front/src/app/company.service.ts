@@ -1,21 +1,49 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from 'rxjs';
-import { Company, Vacancy } from './models';
-@Injectable({
-  providedIn: 'root'
-})
-export class CompanyService {
-
-  constructor(private client:HttpClient) { }
-  getCompanies():  Observable<Company[]>{
-    let val = this.client.get<Company[]>(`http://127.0.0.1:8000/api/companies/`);
-    return val;
-  }
-  getCompany(id: number): Observable<Company>{
-    return this.client.get<Company>(`http://127.0.0.1:8000/api/companies/${id}/`);
-  }
-  getCompanyVacancies(id: number): Observable<Vacancy[]>{
-    return this.client.get<Vacancy[]>(`http://127.0.0.1:8000/api/companies/${id}/vacancies/`);
-  }
+import { Injectable } from '@angular/core'; 
+import {Observable} from "rxjs"; 
+import {HttpClient} from "@angular/common/http"; 
+import { Company } from './models'; 
+ 
+@Injectable({ 
+  providedIn: 'root' 
+}) 
+export class CompanyService { 
+ 
+  BASE_URL = 'http://localhost:8000' 
+ 
+ 
+  constructor(private client: HttpClient) { } 
+ 
+  getCompanies(): Observable<Company[]> { 
+    return this.client.get<Company[]> ( 
+      `${this.BASE_URL}/companies`
+    ) 
+  } 
+ 
+  getCompany(company_id: number): Observable<Company[]> { 
+    return this.client.get<Company[]>( 
+      `${this.BASE_URL}/companies/${company_id}`
+    ) 
+  } 
+ 
+ 
+  createCompany(companyName: string): Observable<Company> { 
+    // console.log(companyName) 
+    return this.client.post<Company>( 
+      `${this.BASE_URL}/companies`, 
+      {Name: companyName} 
+    ) 
+  } 
+ 
+  deleteCompany(company_id: number): Observable<any> { 
+    return this.client.delete( 
+      `${this.BASE_URL}/companies/${company_id}` 
+    ) 
+  } 
+ 
+  updateCompany(company_id:number,company_name:string): Observable<any>{ 
+    return this.client.put( 
+      `${this.BASE_URL}/companies/${company_id}`, 
+      {name: company_name} 
+    ) 
+  } 
 }

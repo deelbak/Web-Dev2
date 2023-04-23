@@ -1,13 +1,10 @@
 from django.db import models
 
-
-# Create your models here.
-
 class Company(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField(null=True)
-    city = models.CharField(max_length=50, null=True)
-    address = models.TextField(null=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=10000)
+    city = models.CharField(max_length=255, default='')
+    address = models.TextField(max_length=500)
 
     class Meta:
         verbose_name = 'Company'
@@ -15,19 +12,18 @@ class Company(models.Model):
 
     def to_json(self):
         return {
-            'id': self.id,
+            'id' : self.id,
             'name': self.name,
-            'description': self.description,
-            'city': self.city,
-            'address': self.address
+            'description' : self.description,
+            'city' : self.city,
+            'address' : self.address
         }
 
-
 class Vacancy(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField(null=True)
-    salary = models.FloatField(null=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=10000)
+    salary = models.FloatField(default=0)
+    company = models.ForeignKey(Company,on_delete=models.CASCADE,default = 0)
 
     class Meta:
         verbose_name = 'Vacancy'
@@ -35,9 +31,11 @@ class Vacancy(models.Model):
 
     def to_json(self):
         return {
-            'id': self.id,
+            'id' : self.id,
             'name': self.name,
-            'description': self.description,
-            'salary': self.salary,
-            'company': self.company.to_json()
+            'description':self.description,
+            'salary' : self.salary,
+            'company' : self.company.id
         }
+
+

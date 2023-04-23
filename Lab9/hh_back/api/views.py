@@ -1,37 +1,60 @@
+from django.shortcuts import render
+import json
+from django.http.response import HttpResponse, JsonResponse
+from datetime import datetime, timedelta
+import requests
+
 from .models import Company, Vacancy
-from django.http.response import JsonResponse
 
 
-# Create your views here.
-def get_companies(request):
-    companies = Company.objects.all()
-    companies_json = [c.to_json() for c in companies]
-    return JsonResponse(companies_json, safe=False)
+def list_of_companies(request):
+    if request.method == 'GET':
+        companies = Company.objects.all()
+        companies_json = [p.to_json() for p in companies]
+        return JsonResponse(companies_json, safe=False)
 
 
-def get_company(request, id):
-    company = Company.objects.filter(id=id).first()
+def company_detail(request, company_id):
+    try:
+        company = Company.objects.get(id=company_id)
+    except Company.DoesNotExist as e:
+        return JsonResponse({'error': str(e)}, status=400)
+    # if request.method == 'GET':
     return JsonResponse(company.to_json(), safe=False)
 
 
-def get_company_vacancies(request, id):
-    vacancies = Vacancy.objects.filter(company=id)
-    vacancies_json = [v.to_json() for v in vacancies]
-    return JsonResponse(vacancies_json, safe=False)
-
-
-def get_vacancies(request):
+def list_of_vacancies(request):
+    # if request.method == 'GET':
     vacancies = Vacancy.objects.all()
-    vacancies_json = [v.to_json() for v in vacancies]
+    vacancies_json = [p.to_json() for p in vacancies]
     return JsonResponse(vacancies_json, safe=False)
 
 
-def get_vacancy(request, id):
-    vacancy = Vacancy.objects.filter(id=id).first()
+def vacancy_detail(request, vacancy_id):
+    try:
+        vacancy = Vacancy.objects.get(id=vacancy_id)
+    except Vacancy.DoesNotExist as e:
+        return JsonResponse({'error': str(e)}, status=400)
+    # if request.method == 'GET':
     return JsonResponse(vacancy.to_json(), safe=False)
 
 
-def get_top_ten_vacancies(request):
-    top = Vacancy.objects.order_by('-salary')[:10]
-    top_json = [t.to_json() for t in top]
-    return JsonResponse(top_json, safe=False)
+def vacancies_of_company(request, company_id):
+    vacancies = Vacancy.objects.filter(company_id=company_id)
+    vacancies_json = [p.to_json() for p in vacancies]
+
+
+    if len(vacancies_json) != 0:
+        return JsonResponse(vacancies_json, safe=False, json_dumps_params={'indent': 2})
+    return JsonResponse({'error': 'Vacancies not found'})
+
+
+def top_ten_vacancies(request):
+    vacancies = []
+    for vacancy in Vacancy.objects.all():
+        vacancies.append(vacancy.to_json())
+    sorted_array = sorted(vacancies, key=lambda x: x['salary'], reverse=True)
+    # vacancies.reverse()
+    if (sorted_array.count != 0):
+        return JsonResponse(sorted_array[0:11], safe=False, json_dumps_params={'indent': 2})
+    return JsonResponse({'error': 'Error404'})

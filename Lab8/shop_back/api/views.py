@@ -22,6 +22,6 @@ def category_by_id(request, id):
     return JsonResponse(category.to_json(), safe=False)
 
 def category_products(request, id):
-    products = Product.objects.filter(id = id)
+    products = Product.objects.filter(category_id = id)
     products_json = [p.to_json() for p in products]
     return JsonResponse(products_json,safe=False)
