@@ -1,0 +1,42 @@
+<h2>Category</h2>
+<ng-container *ngIf="!logged">
+    <h2>Login form</h2>
+    <div>
+        <fieldset>
+            <label>Username: </label>
+            <input type="text" [(ngModel)]="username">
+        </fieldset>
+        <fieldset>
+            <label>Password: </label>
+            <input type="password" [(ngModel)]="password">
+        </fieldset>
+        <button (click)="login()">Login</button>
+        <br>
+        <button>Don't have an account yet? Sign Up</button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="logged">
+    <button (click)="logout()">Log out</button>
+    <h1>Welcome!</h1>
+    <fieldset>
+        <label>Is Listing available</label>
+        <input type="checkbox" [(ngModel)]="isactive">
+        <label>Category name: </label>
+        <input type="text" [(ngModel)]="newCategory">
+        <button (click)="addCategory()">Add category</button>
+    </fieldset>
+
+    <ul>
+        <li *ngFor="let category of categories">
+            <a [title]="category.name + ' details'"
+            [routerLink]="['/categories', category.id]">
+                {{category.id}} - {{category.name}}
+            </a>
+            <button (click)="deleteCategory(category.id)">X</button>
+        </li>
+    </ul>
+
+</ng-container>
+
+

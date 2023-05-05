@@ -1,0 +1,90 @@
+{
+  "categories": [
+    {
+    "name": "Bostandyk District"
+    },
+  {
+    "name": "Almalin District"
+  },
+  {
+    "name": "Medeu District"
+  },
+  {
+    "name": "Auezov district"
+  }
+  ],
+  "products": [
+    {
+      "name": "Product 1",
+      "price": 10.0,
+      "description": "Description of product 1",
+      "count": 5,
+      "is_active": true,
+      "category": "Bostandyk District"
+    },
+    {
+      "name": "Product 2",
+      "price": 20.0,
+      "description": "Description of product 2",
+      "count": 10,
+      "is_active": true,
+      "category": "Bostandyk District"
+    },
+    {
+      "name": "Product 3",
+      "price": 30.0,
+      "description": "Description of product 3",
+      "count": 15,
+      "is_active": true,
+      "category": "Almalin District"
+    },
+    {
+      "name": "Product 4",
+      "price": 15.0,
+      "description": "Description of product 4",
+      "count": 20,
+      "is_active": false,
+      "category": "Almalin District"
+    },
+    {
+      "name": "Product 5",
+      "price": 25.0,
+      "description": "Description of product 5",
+      "count": 8,
+      "is_active": true,
+      "category": "Medeu District"
+    },
+    {
+      "name": "Product 6",
+      "price": 35.0,
+      "description": "Description of product 6",
+      "count": 12,
+      "is_active": true,
+      "category": "Medeu District"
+    },
+    {
+      "name": "Product 7",
+      "price": 50.0,
+      "description": "Description of product 7",
+      "count": 3,
+      "is_active": false,
+      "category": "Auezov district"
+    },
+    {
+      "name": "Product 8",
+      "price": 40.0,
+      "description": "Description of product 8",
+      "count": 6,
+      "is_active": true,
+      "category": "Auezov district"
+    },
+    {
+      "name": "Product 9",
+      "price": 70.0,
+      "description": "Description of product 9",
+      "count": 18,
+      "is_active": true,
+      "category": "Auezov district"
+    }
+  ]
+}
